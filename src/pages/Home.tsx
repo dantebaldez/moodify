@@ -1,33 +1,71 @@
-// src/pages/Home.tsx
-import React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import MoodSelection from '../components/MoodSelection'
+import PlaylistList from '../components/PlaylistList'
+import type { Playlist } from '../data/playlists'
+import { playlists as allPlaylists } from '../data/playlists'
 
-const Container = styled.main`
+const PageContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+`
+
+const Sidebar = styled.aside`
+  width: 30%;
+  background: linear-gradient(135deg, #9933cc, #66cc99);
+  color: white;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem;
+  text-align: left;
+  overflow-y: auto;
+  box-sizing: border-box;
+`
+
+const SidebarContent = styled.div`
+  /* só para agrupar title + text */
+`
+
+const Content = styled.main`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  background-color: #121212;
   padding: 2rem;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #9933CC 0%, #66CC99 100%);
-  color: #fff;
-`
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-`
-
-const Subtitle = styled.p`
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  color: #f2f2f2;
 `
 
 export default function Home() {
+  const [selectedMood, setSelectedMood] = useState<'animado' | 'relax' | 'focus'>('animado')
+  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null)
+
+  const filteredPlaylists = allPlaylists.filter(p => p.mood === selectedMood)
+
   return (
-    <Container>
-      <Title>Bem-vindo ao Moodify!</Title>
-      <Subtitle>Escolha seu humor e descubra playlists incríveis.</Subtitle>
-      {/* Aqui depois entra o componente de seleção de mood e playlists */}
-    </Container>
+    <PageContainer>
+      <Sidebar>
+        <SidebarContent>
+          <h1>Moodify</h1>
+          <p>
+            Encontre a trilha sonora perfeita para seu humor ou atividade.<br /><br />
+            Desenvolvido por Dante com carinho e a companhia do Mimin 🐶
+          </p>
+        </SidebarContent>
+      </Sidebar>
+      <Content>
+        <MoodSelection
+          selectedMood={selectedMood}
+          onSelectMood={(m: 'animado' | 'relax' | 'focus') => {
+            setSelectedMood(m)
+            setSelectedPlaylist(null)
+          }}
+        />
+        <PlaylistList playlists={filteredPlaylists} onSelect={setSelectedPlaylist} />
+      </Content>
+    </PageContainer>
   )
 }

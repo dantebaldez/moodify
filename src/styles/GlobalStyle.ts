@@ -1,13 +1,14 @@
-// src/styles/GlobalStyle.ts
-
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-  html, body, #root {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
+ html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #121212;
+  color: #f2f2f2;
+}
 
   *, *::before, *::after {
     box-sizing: border-box;
@@ -15,8 +16,6 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #f2f2f2;
-    color: #333;
   }
 
   button {
@@ -27,6 +26,6 @@ const GlobalStyle = createGlobalStyle`
   input, textarea {
     font-family: inherit;
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

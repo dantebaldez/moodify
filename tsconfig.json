@@ -1,4 +1,9 @@
 {
-  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+	},
+	"extends": "./tsconfig.app.json",
   "include": ["src"]
 }
